@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>One by One Winning by Apkmodderkings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: #000;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 14px;
+      font-size: 20px;
+      font-weight: bold;
+      background: linear-gradient(to right, #ffcc00, #ff9900);
+      color: #000;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .header svg {
+      width: 20px;
+      height: 20px;
+      fill: black;
+    }
+
+    .won-animation {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 36px;
+      font-weight: bold;
+      color: #00ff90;
+      text-shadow: 0 0 20px #00ff90;
+      animation: pulseWon 10s ease-out;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    @keyframes pulseWon {
+      0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+    }
+
+    .intro {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 60px);
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-size: 22px;
+      font-weight: bold;
+      color: #ffcc00;
+      z-index: 999;
+    }
+
+    .cooldown {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #ffcc00;
+      z-index: 1001;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 80px;
+      height: 100vh;
+    }
+
+    .card {
+      background: linear-gradient(to bottom right, #111, #1c1c1c);
+      border: 2px solid #ffcc00;
+      border-radius: 16px;
+      color: #fff;
+      padding: 20px;
+      width: 85%;
+      max-width: 320px;
+      box-shadow: 0 0 20px rgba(255, 255, 0, 0.2);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+      position: absolute;
+    }
+
+    .card.active {
+      opacity: 1;
+      transform: translateY(0);
+      z-index: 10;
+    }
+
+    .period {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ffcc00;
+      margin-bottom: 10px;
+    }
+
+    .number {
+      font-size: 40px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .size {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #00c3ff;
+      animation: glowSize 4s infinite ease-in-out;
+    }
+
+    @keyframes glowSize {
+      0%, 100% { opacity: 1; transform: translateY(0); }
+      50% { opacity: 0.8; transform: translateY(-3px); }
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      animation: pulseDot 3s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+
+    .red { background: #e74c3c; }
+    .green { background: #2ecc71; }
+    .violet { background: #9b59b6; }
+
+    @media (max-width: 480px) {
+      .number { font-size: 34px; }
+      .period { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    One by One Winning by Apkmodderkings
+    <svg viewBox="0 0 24 24"><path d="M9.993 17.988c-.273 0-.24-.104-.34-.367l-.857-2.833 6.905-4.095c.317-.194.55-.082.334.112l-5.587 5.064-.233 3.128c-.017.226-.108.33-.222.33Zm11.3-14.44c-.278-.24-.67-.293-1.057-.147L2.38 9.573c-.457.177-.758.6-.775 1.085-.017.487.253.927.698 1.14l4.262 1.99L9.038 20.3c.183.5.625.828 1.138.86h.064c.497 0 .948-.297 1.13-.76l2.006-5.23 4.69 4.147c.227.2.52.307.82.307.136 0 .272-.02.4-.06.43-.133.766-.49.878-.958l3.003-12.75c.108-.457-.034-.917-.37-1.218Z"/></svg>
+  </div>
+
+  <div class="won-animation" id="won-animation">WON!</div>
+
+  <div class="intro" id="intro-screen">
+    One by One Winning<br>Starting in <div id="intro-timer">10</div>
+  </div>
+
+  <div class="cooldown" id="cooldown-screen">
+    Next Prediction in: <span id="cooldown-timer">59</span> sec
+  </div>
+
+  <div class="card-container">
+    <div class="card" id="card-0"><div class="period">Period: 20250702100010167</div><div class="number">2</div><div class="size">Small</div><div class="dots"><span class="dot red"></span></div></div>
+    <div class="card" id="card-1"><div class="period">Period: 20250702100010168</div><div class="number">9</div><div class="size">Big</div><div class="dots"><span class="dot green"></span></div></div>
+    <div class="card" id="card-2"><div class="period">Period: 20250702100010169</div><div class="number">6</div><div class="size">Big</div><div class="dots"><span class="dot red"></span></div></div>
+    <div class="card" id="card-3"><div class="period">Period: 20250702100010170</div><div class="number">0</div><div class="size">Small</div><div class="dots"><span class="dot red"></span><span class="dot violet"></span></div></div>
+    <div class="card" id="card-4"><div class="period">Period: 20250702100010171</div><div class="number">9</div><div class="size">Big</div><div class="dots"><span class="dot green"></span></div></div>
+    <div class="card" id="card-5"><div class="period">Period: 20250702100010172</div><div class="number">4</div><div class="size">Small</div><div class="dots"><span class="dot red"></span></div></div>
+    <div class="card" id="card-6"><div class="period">Period: 20250702100010173</div><div class="number">0</div><div class="size">Small</div><div class="dots"><span class="dot red"></span><span class="dot violet"></span></div></div>
+    <div class="card" id="card-7"><div class="period">Period: 20250702100010174</div><div class="number">2</div><div class="size">Small</div><div class="dots"><span class="dot red"></span></div></div>
+    <div class="card" id="card-8"><div class="period">Period: 20250702100010175</div><div class="number">0</div><div class="size">Small</div><div class="dots"><span class="dot red"></span><span class="dot violet"></span></div></div>
+    <div class="card" id="card-9"><div class="period">Period: 20250702100010176</div><div class="number">3</div><div class="size">Small</div><div class="dots"><span class="dot green"></span></div></div>
+  </div>
+
+  <script>
+    let current = -1;
+    const cards = document.querySelectorAll(".card");
+    const introScreen = document.getElementById("intro-screen");
+    const cooldownScreen = document.getElementById("cooldown-screen");
+    const introTimer = document.getElementById("intro-timer");
+    const cooldownTimer = document.getElementById("cooldown-timer");
+    const won = document.getElementById("won-animation");
+
+    // Intro countdown
+    let introCount = 10;
+    const introInterval = setInterval(() => {
+      introCount--;
+      introTimer.innerText = introCount;
+      if (introCount <= 0) {
+        clearInterval(introInterval);
+        introScreen.style.display = "none";
+        showNext();
+      }
+    }, 1000);
+
+    function showNext() {
+      if (current >= 0) cards[current].classList.remove("active");
+      current++;
+      if (current >= cards.length) return;
+
+      cards[current].classList.add("active");
+
+      // Vibration
+      if (navigator.vibrate) navigator.vibrate(500);
+
+      // Show "WON!" animation
+      won.style.display = 'block';
+      won.style.animation = 'none';
+      void won.offsetWidth;
+      won.style.animation = 'pulseWon 10s ease-out';
+
+      // Show cooldown
+      cooldownScreen.style.display = "block";
+      let count = 59;
+      cooldownTimer.innerText = count;
+      const cooldownInterval = setInterval(() => {
+        count--;
+        cooldownTimer.innerText = count;
+        if (count <= 0) {
+          clearInterval(cooldownInterval);
+          cooldownScreen.style.display = "none";
+          won.style.display = "none";
+          showNext();
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
